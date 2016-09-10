@@ -1,15 +1,20 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+    <!--
+    @license
+    Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 
 <dom-module id="my-view1">
   <template>
@@ -19,19 +24,113 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
-    </style>
+      #submit{
+    
+      }
+</style>
 
+<div class="card">
+  <h1> Make an Account </h1>
+  <form is="iron-form" id="form" on-iron-form-presubmit="_presubmit">
+    <paper-input id = "first" name="first_name" label="First Name" required></paper-input>
+    <paper-input name="last_name" label="Last Name" required></paper-input>
+    <paper-input name="street_number" label="Street Number" required></paper-input>
+    <paper-input name="street_name" label="Street Name" required></paper-input>
+    <paper-input name="city" label="City" required></paper-input>
+    <paper-input name="state" label="State" required></paper-input>
+    <paper-input name="zip" label="Zip" required></paper-input>
+    <div>
+    <paper-button raised on-tap="_submit" id="submit">Submit</paper-button>
+    </div>
+
+</form>
+
+<div class="output"></div>
+    <!--       <script>
+            function makeAcc(){
+              var exampleData = {
+                "first_name": "adam",
+                "last_name": "sun",
+                "address": {
+                  "street_number": "20",
+                  "street_name": "apple ct",
+                  "city": "string",
+                  "state": "CA",
+                  "zip": "12345"
+                }
+              };
+              $.ajax({
+                url: 'http://api.reimaginebanking.com/customers?key=0e1ba0bce0f168a7a858b3763c28687e',
+                type: "POST",
+                data: JSON.stringify(exampleData),
+                contentType: "application/json; charset=utf-8",
+                
+                success: function(results){
+                    console.log(results);
+                }
+              });
+            }
+        </script> -->
+
+    </div>
     <div class="card">
       <div class="circle">1</div>
       <h1>View One</h1>
       <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
-  </template>
+          <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      </div>
+      <div class="card">
+          <div class="circle">2</div>
+          <h1>View One</h1>
+          <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
+              <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+          </div>
+      </template>
 
-  <script>
-    Polymer({
-      is: 'my-view1'
+      <script>
+        Polymer({
+          is: 'my-view1',
+          _presubmit: function(e) {
+            //var body = this.$.form.request.body;
+            //console.log(body);
+            //body['address'] = [body['street_number'], body['street_name'], body['city'], body['state'], body['zip']];
+            //console.log('body', body);
+            //console.log('presubmit debug');
+            //console.log(e.target.request.body);
+        },
+        _submit: function() {
+            var temp = [];
+            var data = this.$.form.childNodes.forEach(function(child) {
+                if (child.value) {
+                    temp.push(child.value);
+                }
+            });
+            console.log('temp is:', temp);
+            var address = {
+                'street_number': parseInt(temp[2], 10), 
+                'street_name': temp[3], 
+                'city' : temp[4], 
+                'state' : temp[5], 
+                'zip' : temp[6]
+            };
+            var make_temp = {
+                "first_name" : temp[0],
+                "last_name" : temp[1],
+                "address" : address
+            };
+            console.log('make_temp is:', make_temp);
+            $.ajax({
+                url: 'http://api.reimaginebanking.com/customers?key=0e1ba0bce0f168a7a858b3763c28687e',
+                type: "POST",
+                data: JSON.stringify(make_temp),
+                contentType: "application/json; charset=utf-8",
+                success: function(results){
+                    console.log(results);
+                }
+            });
+
+            this.set('route.path', '/view2/');
+        }
     });
-  </script>
+</script>
 </dom-module>
