@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="shared-styles.html">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -33,20 +34,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-input name="password" label="Password" required></paper-input>
                 <br/>
                 <paper-button raised on-tap="_submit" id="submit">Submit</paper-button>
+                <paper-button raised style="float: right; background: lightblue;" on-tap="_submit" id="googleSignin">Google Sign-In</paper-button>
+                <!--<paper-icon-button style="float: right;" src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" drawer-toggle></paper-icon-button>-->
             </form>
 
             <div class="output"></div>
         </div>
+
+        <firebase-auth
+                id="auth"
+                user="{{user}}"
+                app-name="iponzi"
+                provider="google">
+        </firebase-auth>
+
     </template>
 
     <script>
         Polymer({
             is: 'my-login',
             _submit: function () {
-
-                // Firebase login
-                // this.set('route.path', '/view2/');
-                this.$.auth.signInWithPopup();
+                this.$.auth.signInWithPopup()
+                        .then(function (response) {
+                            console.log('Response:', response);
+                            window.location.href = 'leaderboard';
+                        })
+                        .catch(function (error) {
+                            console.log('error:', error);
+                        });
             }
         });
     </script>
