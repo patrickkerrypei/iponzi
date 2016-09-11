@@ -5,6 +5,7 @@
     "src/my-register.html",
     "src/my-login.html",
     "src/my-leaderboard.html",
+    "src/my-account.html",
     "src/my-view404.html"
   ],
   "sourceGlobs": [
