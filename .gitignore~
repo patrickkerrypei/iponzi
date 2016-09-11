@@ -1,0 +1,7 @@
+# Jetbrains config
+.idea
+firebase-config.json
+build/
+
+# Bower
+bower_components

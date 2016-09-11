@@ -22,20 +22,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                 padding: 10px;
             }
+            #form{
+                text-align: center;
+            }
+            .refer{
+                font-size: 18px;
+            }
         </style>
 
         <div class="card">
-
-
             <h1>Your Account</h1>
-            <form is="iron-form" id="form" on-iron-form-presubmit="_presubmit">
-
-                <paper-input id="first" name="reference_name" label="Reference Name" required></paper-input>
-                <paper-button raised on-tap="_submit" id="submit">Submit reference</paper-button>
-
-                <p>Enter the reference code for the person who referred you, and they will receive their reward!
-                <p>For every person who puts you down as their reference, you'll receive $3. All proceeds will be
-                    donated to Doctor's Without Borders. </p>
+                <form is="iron-form" id="form" on-iron-form-presubmit="_presubmit">
+                    <img src="../images/mail.png" height=100 width=100>
+                    <paper-input id="first" name="reference_name" label="Reference Email" required></paper-input><br>
+                    <paper-button raised on-tap="_submit" id="submit">Submit reference</paper-button>
+                </form>
+                <p class="refer">Enter the reference code for the person who referred you, and they will receive their reward! For every person who puts you down as their reference, you'll receive $3. All proceeds will be donated to Doctor's Without Borders. </p>
 
             </form>
         </div>
