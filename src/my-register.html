@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 
-<dom-module id="my-view1">
+<dom-module id="my-register">
     <template>
         <style include="shared-styles">
             :host {
@@ -48,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script>
         Polymer({
-            is: 'my-view1',
+            is: 'my-register',
             _submit: function () {
                 var temp = [];
                 this.$.form.childNodes.forEach(function (child) {
@@ -80,7 +80,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     }
                 });
 
-                this.set('route.path', '/view2/');
+
+//                this.set('route.path', '/view2/');
+//                this.$.auth.signInWithPopup();
             }
         });
     </script>
