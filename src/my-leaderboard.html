@@ -7,8 +7,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-leaderboard">
@@ -16,22 +19,112 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+        --paper-tabs-selection-bar-color: #E91E63;
+        --paper-tab-ink: #A9A9A9;
+      }
+      a{
+        font-family: 'Lato', sans-serif;
+        text-decoration: none;
+        text-align: center;
+        color: black;
+        font-size: 18px;
       }
     </style>
 
+    <paper-tabs selected="0" >
+      <paper-tab link>
+        <a href="#link1" class="link" tabindex="-1">Daily</a>
+      </paper-tab>
+      <paper-tab link>
+        <a href="#link2" class="link" tabindex="-1">Weekly</a>
+      </paper-tab>
+      <paper-tab link>
+        <a href="#link3" class="link" tabindex="-1">Monthly</a>
+      </paper-tab>
+    </paper-tabs>
+
+
     <div class="card">
-      <div class="circle">3</div>
-      <h1>View Three</h1>
-      <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
-    </div>
+      <vaadin-grid id="vaadinleaderboard">
+        <table>
+          <colgroup>
+            <col name="rank">
+            <col name="name">
+            <col name="profit">
+          </colgroup>
+          <!--         <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Name</th>
+                      <th>Profit</th>
+                    </tr>
+                  </thead>
+                  <tbody id="board">
+                    <tr>
+                      <td>Project A</td>
+                      <td>10000</td>
+                      <td>0.8</td>
+                    </tr>
+                    <tr>
+                      <td>Project B</td>
+                      <td>999999</td>
+                      <td>0.8</td>
+                    </tr>
+                  </tbody> -->
+        </table>
+      </vaadin-grid>
   </template>
 
   <script>
     Polymer({
-      is: 'my-leaderboard'
+      is: 'my-leaderboard',
+      ready: function() {
+        var entries = [];
+        var profits = [];
+        var self = this;
+
+        $.ajax({
+          url: 'http://api.reimaginebanking.com/accounts?type=Credit%20Card&key=0e1ba0bce0f168a7a858b3763c28687e',
+          type: "GET",
+          contentType: "application/json; charset=utf-8",
+          success: function(results){
+            //creates a lists of objects containing balance and customer_id
+            results.forEach(function(item){
+              var id = item['customer_id'];
+              profits.push({
+                "balance": item['balance'],
+                'customer_id':item['customer_id']
+              });
+            });
+            //sorts list greatest to least based on profit
+            var sorted = profits.slice(0);
+            sorted.sort(function(a,b){
+              return b.balance - a.balance;
+            });
+
+            //traverse through sorted list
+            sorted.forEach(function(item, i){
+              $.ajax({
+                url: 'http://api.reimaginebanking.com/customers/' + item['customer_id'] + '?key=0e1ba0bce0f168a7a858b3763c28687e',
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function(result){
+                  //console.log('result', result);
+                  var name = result['first_name'] + " " + result['last_name'];
+                  var row = {
+                    rank: i+1,
+                    name: name,
+                    profit: item['balance']
+                  };
+                  entries.push(row);
+                  self.$.vaadinleaderboard.items = entries.slice();
+                }
+              });
+            });
+          }
+        });
+      }
     });
   </script>
 </dom-module>
