@@ -6,6 +6,7 @@
     "src/my-login.html",
     "src/my-leaderboard.html",
     "src/my-account.html",
+    "src/my-about.html",
     "src/my-view404.html"
   ],
   "sourceGlobs": [
