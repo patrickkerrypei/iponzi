@@ -27,15 +27,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </style>
 
         <div class="card">
-            <h1> Make an Account </h1>
+            <h1>Register</h1>
             <form is="iron-form" id="form" on-iron-form-presubmit="_presubmit">
                 <paper-input id="first" name="first_name" label="First Name" required></paper-input>
                 <paper-input name="last_name" label="Last Name" required></paper-input>
-                <paper-input name="street_number" label="Street Number" required></paper-input>
-                <paper-input name="street_name" label="Street Name" required></paper-input>
-                <paper-input name="city" label="City" required></paper-input>
-                <paper-input name="state" label="State" required></paper-input>
-                <paper-input name="zip" label="Zip" required></paper-input><br/>
+                <paper-input name="email" label="Email" required></paper-input>
+                <br/>
+                <!--<paper-input name="street_number" label="Street Number" required></paper-input>-->
+                <!--<paper-input name="street_name" label="Street Name" required></paper-input>-->
+                <!--<paper-input name="city" label="City" required></paper-input>-->
+                <!--<paper-input name="state" label="State" required></paper-input>-->
+                <!--<paper-input name="zip" label="Zip" required></paper-input><br/>-->
                 <paper-button raised on-tap="_submit" id="submit">Submit</paper-button>
 
             </form>
@@ -56,11 +58,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 });
 
                 var address = {
-                    'street_number': temp[2],
-                    'street_name': temp[3],
-                    'city': temp[4],
-                    'state': temp[5],
-                    'zip': temp[6]
+                    'street_number': "1",
+                    'street_name': "Main Street",
+                    'city': "Philadelphia",
+                    'state': "Pennsylvania",
+                    'zip': "19104"
                 };
                 var data = {
                     "first_name": temp[0],
