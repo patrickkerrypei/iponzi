@@ -32,6 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-input id="first" name="first_name" label="First Name" required></paper-input>
                 <paper-input name="last_name" label="Last Name" required></paper-input>
                 <paper-input name="email" label="Email" required></paper-input>
+                <paper-input name="password" label="Password" required></paper-input>
                 <br/>
                 <!--<paper-input name="street_number" label="Street Number" required></paper-input>-->
                 <!--<paper-input name="street_name" label="Street Name" required></paper-input>-->
@@ -77,13 +78,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     contentType: "application/json; charset=utf-8",
                     success: function (results) {
                         console.log('Created customer: ', results);
+                        window.location.href = 'leaderboard';
                     }
                 });
 
-
-                this.set('register.path', '/login/');
-                console.log('redirected');
-//                this.$.auth.signInWithPopup();
             }
         });
     </script>
