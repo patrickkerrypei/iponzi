@@ -2,9 +2,10 @@
 ## PennApps 2016 - Winner of Google's - "Best Progressive Web App"
 
 #### Preview:
-<img src="/images/README-images/about.png" alt="About" style="width:25%;height:25%">
-<img src="/images/README-images/launcher.png" alt="Launcher" style="width:25%;height:25%">
-<img src="/images/README-images/desktop.jpg" alt="Desktop" style="width:25%;height:25%">
+<img src="/images/README-images/about.png" alt="About" width="25%" height="25%">
+<img src="/images/README-images/launcher.png" alt="Launcher" width="25%" height="25%">
+<img src="/images/README-images/login.png" alt="Login" width="25%" height="25%">
+<img src="/images/README-images/desktop.jpg" alt="Desktop" width="80%" height="80%">
 
 This template, along with the `polymer-cli` toolchain, also demonstrates use
 of the "PRPL pattern" This pattern allows fast first delivery and interaction with
