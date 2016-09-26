@@ -5,3 +5,6 @@ build/
 
 # Bower
 bower_components
+
+# Secret
+secret/
