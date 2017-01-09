@@ -1,6 +1,14 @@
 # Jetbrains config
 .idea
+
+# Node environment
+.nvmrc
+
+# Firebase
 firebase-config.json
+firebase-debug.log
+
+# Generated
 build/
 
 # Bower
@@ -8,3 +16,6 @@ bower_components
 
 # Secret
 secret/
+
+# Github (Poylmer issue templates)
+.github
